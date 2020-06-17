@@ -1,0 +1,10 @@
+IR_Remote.c:3:6:HAL_TIM_PeriodElapsedCallback	24	static
+IR_Remote.c:71:5:MATCH	24	static
+IR_Remote.c:76:5:MATCH_MARK	16	static
+IR_Remote.c:82:5:MATCH_SPACE	16	static
+IR_Remote.c:90:9:my_decode	16	static
+IR_Remote.c:155:6:my_enableIRIn	32	static
+IR_Remote.c:183:9:my_isIdle	4	static
+IR_Remote.c:188:6:my_resume	4	static
+IR_Remote.c:194:5:compare	24	static
+IR_Remote.c:204:9:decodeHash	24	static

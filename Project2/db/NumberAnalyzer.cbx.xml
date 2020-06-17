@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="NumberAnalyzer">
+		<CBX_INST_ENTRY INSTANCE_NAME="|number_analyzer|pal_number_analyzer:pna|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_gvo.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|number_analyzer|pal_number_analyzer:pna|lpm_divide:Mod0" CBX_FILE_NAME="lpm_divide_jno.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

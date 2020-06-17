@@ -1,0 +1,103 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\cecen\Documents\Classes\CSE 433\Project2\simulation\modelsim
+vfib_number_analyzer
+I=:gB9>1>I]Hk3X46QH]9=3
+VnaNF[[_bT`=VbC1;JBz:=2
+Z1 dC:\Users\cecen\Documents\Classes\CSE 433\Project2\simulation\modelsim
+w1591484714
+8C:/Users/cecen/Documents/Classes/CSE 433/Project2/fib_number_analyzer.v
+FC:/Users/cecen/Documents/Classes/CSE 433/Project2/fib_number_analyzer.v
+L0 1
+Z2 OV;L;10.1d;51
+r1
+31
+Z3 o-vlog01compat -work work -O0
+Z4 !s92 -vlog01compat -work work {+incdir+C:/Users/cecen/Documents/Classes/CSE 433/Project2} -O0
+!i10b 1
+!s100 iYa<ceUDHmcM1>hAMQ]VV3
+!s85 0
+!s108 1591531602.964000
+!s107 C:/Users/cecen/Documents/Classes/CSE 433/Project2/fib_number_analyzer.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/cecen/Documents/Classes/CSE 433/Project2|C:/Users/cecen/Documents/Classes/CSE 433/Project2/fib_number_analyzer.v|
+!s101 -O0
+vnumber_analyzer
+I9R4gDRmZRC<eic8_49I7a3
+Vl@I5k^>@[4z=hdKGleXRH3
+R1
+w1591478387
+8C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer.v
+FC:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer.v
+L0 1
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 PD74XQRMPR1lkdNGkf8Vc0
+!s85 0
+!s108 1591531602.630000
+!s107 C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/cecen/Documents/Classes/CSE 433/Project2|C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer.v|
+!s101 -O0
+vnumber_analyzer_tb
+!i10b 1
+!s100 Ikh62BJS=Mj6em>`TlzAS3
+IdLKE[YDR=mmS6dT`^aNiK0
+VYCR1J1P5;BBYR^XI=E31=1
+R1
+w1591479923
+8C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer_tb.v
+FC:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer_tb.v
+L0 1
+R2
+r1
+!s85 0
+31
+!s108 1591531638.648000
+!s107 C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer_tb.v|
+!s90 -reportprogress|300|-work|work|C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer_tb.v|
+!s101 -O0
+Z5 o-work work -O0
+vodd_number_analyzer
+I<>YXa=NChn_78NkMIf@lB1
+VEJMIQ9^LcWbd<8L_1>zgF0
+R1
+w1591484671
+8C:/Users/cecen/Documents/Classes/CSE 433/Project2/odd_number_analyzer.v
+FC:/Users/cecen/Documents/Classes/CSE 433/Project2/odd_number_analyzer.v
+L0 1
+R2
+r1
+31
+R3
+R4
+!i10b 1
+!s100 WbQz^;Z3=5FazjVA>@MC_2
+!s85 0
+!s108 1591531602.823000
+!s107 C:/Users/cecen/Documents/Classes/CSE 433/Project2/odd_number_analyzer.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/cecen/Documents/Classes/CSE 433/Project2|C:/Users/cecen/Documents/Classes/CSE 433/Project2/odd_number_analyzer.v|
+!s101 -O0
+vpal_number_analyzer
+IJZ0?S<jWckbK`3<P`f_Fn2
+VSGXDY?iM[OL50gWf@=7LF2
+R1
+w1591531558
+8C:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v
+FC:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v
+L0 1
+R2
+r1
+31
+R5
+!i10b 1
+!s100 LYV7_zPg4nk5;Z:>HeT@T0
+!s85 0
+!s108 1591531633.397000
+!s107 C:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v|
+!s90 -reportprogress|300|-work|work|C:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v|
+!s101 -O0

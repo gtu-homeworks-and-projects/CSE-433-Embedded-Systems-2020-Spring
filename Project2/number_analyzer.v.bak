@@ -1,0 +1,24 @@
+module number_analyzer(in_number, clock, reset, enable, out_ready, is_odd, is_fibonacci, is_palindrome);
+input clock;
+input reset;
+input enable;
+input [31:0] in_number; 
+output reg out_ready;
+output reg is_odd;
+output reg is_fibonacci;
+output reg is_palindrome;
+
+reg odd_ready;
+reg fib_ready;
+reg pal_ready;
+
+odd_number_analyzer ona(in_number, clock, reset, enable, odd_ready, is_odd);
+odd_number_analyzer fna(in_number, clock, reset, enable, fib_ready, is_fibonacci);
+odd_number_analyzer pna(in_number, clock, reset, enable, pal_ready, is_palindrome);
+
+always @(posedge clock, posedge reset)
+begin
+	out_ready <= odd_ready & fib_ready & pal_ready;
+end
+
+endmodule

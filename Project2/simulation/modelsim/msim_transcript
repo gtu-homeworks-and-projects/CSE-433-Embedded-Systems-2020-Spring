@@ -1,0 +1,85 @@
+# Reading D:/Programs/Altera/Quartus/modelsim_ase/tcl/vsim/pref.tcl 
+# do NumberAnalyzer_run_msim_rtl_verilog.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying D:\Programs\Altera\Quartus\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied D:\Programs\Altera\Quartus\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vlog -vlog01compat -work work +incdir+C:/Users/cecen/Documents/Classes/CSE\ 433/Project2 {C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module number_analyzer
+# 
+# Top level modules:
+# 	number_analyzer
+# vlog -vlog01compat -work work +incdir+C:/Users/cecen/Documents/Classes/CSE\ 433/Project2 {C:/Users/cecen/Documents/Classes/CSE 433/Project2/odd_number_analyzer.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module odd_number_analyzer
+# 
+# Top level modules:
+# 	odd_number_analyzer
+# vlog -vlog01compat -work work +incdir+C:/Users/cecen/Documents/Classes/CSE\ 433/Project2 {C:/Users/cecen/Documents/Classes/CSE 433/Project2/fib_number_analyzer.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module fib_number_analyzer
+# 
+# Top level modules:
+# 	fib_number_analyzer
+# vlog -vlog01compat -work work +incdir+C:/Users/cecen/Documents/Classes/CSE\ 433/Project2 {C:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module pal_number_analyzer
+# ** Warning: C:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v(36): (vlog-2256) Event expressions should result in a singular type.
+# 
+# 
+# Top level modules:
+# 	pal_number_analyzer
+# 
+vlog -reportprogress 300 -work work {C:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module pal_number_analyzer
+# ** Warning: C:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v(36): (vlog-2256) Event expressions should result in a singular type.
+# 
+# 
+# Top level modules:
+# 	pal_number_analyzer
+vlog -reportprogress 300 -work work {C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer_tb.v}
+# Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+# -- Compiling module number_analyzer_tb
+# 
+# Top level modules:
+# 	number_analyzer_tb
+vsim work.number_analyzer_tb
+# vsim work.number_analyzer_tb 
+# Loading work.number_analyzer_tb
+# Loading work.number_analyzer
+# Loading work.odd_number_analyzer
+# Loading work.fib_number_analyzer
+# Loading work.pal_number_analyzer
+step -current
+# Time:   0 	Number:          0, Is Odd: x, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time:   5 	Number:          0, Is Odd: 0, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time:  15 	Number:          0, Is Odd: 0, Is Fibonacci: 1, Is Palindrome: 0, Output Ready: 0
+# Time:  25 	Number:          0, Is Odd: 0, Is Fibonacci: 1, Is Palindrome: 1, Output Ready: 1
+# Time: 225 	Number:    1346269, Is Odd: 0, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 245 	Number:    1346269, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 845 	Number:    1346269, Is Odd: 1, Is Fibonacci: 1, Is Palindrome: 0, Output Ready: 1
+# Time: 1045 	Number:    1187811, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 1055 	Number:    1187811, Is Odd: 0, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 1065 	Number:    1187811, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 1295 	Number:    1187811, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 1, Output Ready: 0
+# Time: 1665 	Number:    1187811, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 1, Output Ready: 1
+# Time: 1865 	Number:     832040, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 1875 	Number:     832040, Is Odd: 0, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 2465 	Number:     832040, Is Odd: 0, Is Fibonacci: 1, Is Palindrome: 0, Output Ready: 1
+# Time: 2665 	Number:      13469, Is Odd: 0, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 2685 	Number:      13469, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 3105 	Number:      13469, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 1
+# Time: 3305 	Number:       1669, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 3315 	Number:       1669, Is Odd: 0, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 3325 	Number:       1669, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 0
+# Time: 3665 	Number:       1669, Is Odd: 1, Is Fibonacci: 0, Is Palindrome: 0, Output Ready: 1
+# Break key hit 
+# Simulation stop requested.

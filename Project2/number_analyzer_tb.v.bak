@@ -1,0 +1,28 @@
+module number_analyzer_tb;
+	reg in_number;
+	reg clock;
+	reg reset;
+	reg enable;
+	
+	
+	wire is_odd;
+	wire is_fib;
+	wire is_pal;
+	wire all_ready;
+	 
+	number_analyzer na(in_number, clock, reset, enable, all_ready, is_odd, is_fib, is_pal);
+	
+	initial begin
+		in_number = 0;
+		clock = 0;
+		forever #5 clock = ~clock;
+	end 
+	always @(all_ready) begin
+		if (all_ready) begin
+			in_number <=in_number + 3;
+			reset <= 1;
+			#10 reset <= 0;
+		end
+	end
+
+endmodule

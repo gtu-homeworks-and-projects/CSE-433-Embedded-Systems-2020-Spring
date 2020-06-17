@@ -1,0 +1,25 @@
+
+State Machine - |number_analyzer|pal_number_analyzer:pna|current_state
+Name current_state.S5 current_state.S4 current_state.S6 current_state.S2 current_state.S3 current_state.S1 current_state.S0 
+current_state.S0 0 0 0 0 0 0 0 
+current_state.S1 0 0 0 0 0 1 1 
+current_state.S3 0 0 0 0 1 0 1 
+current_state.S2 0 0 0 1 0 0 1 
+current_state.S6 0 0 1 0 0 0 1 
+current_state.S4 0 1 0 0 0 0 1 
+current_state.S5 1 0 0 0 0 0 1 
+
+State Machine - |number_analyzer|fib_number_analyzer:fna|current_state
+Name current_state.S2 current_state.S3 current_state.S1 current_state.S0 current_state.S4 
+current_state.S0 0 0 0 0 0 
+current_state.S1 0 0 1 1 0 
+current_state.S3 0 1 0 1 0 
+current_state.S2 1 0 0 1 0 
+current_state.S4 0 0 0 1 1 
+
+State Machine - |number_analyzer|odd_number_analyzer:ona|current_state
+Name current_state.S3 current_state.S2 current_state.S1 current_state.S0 
+current_state.S0 0 0 0 0 
+current_state.S1 0 0 1 1 
+current_state.S2 0 1 0 1 
+current_state.S3 1 0 0 1 

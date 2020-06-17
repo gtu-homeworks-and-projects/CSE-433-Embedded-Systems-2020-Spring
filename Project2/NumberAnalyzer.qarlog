@@ -1,0 +1,21 @@
+Quartus II Archive log --	C:/Users/cecen/Documents/Classes/CSE 433/Project2/NumberAnalyzer.qarlog
+
+Archive:	C:/Users/cecen/Documents/Classes/CSE 433/Project2/NumberAnalyzer.qar
+Date:		Sun Jun 07 16:07:28 2020
+Quartus II 64-Bit		13.1.0 Build 162 10/23/2013 SJ Web Edition
+
+	=========== Files Selected: ===========
+C:/Users/cecen/Documents/Classes/CSE 433/Project2/NumberAnalyzer.qpf
+C:/Users/cecen/Documents/Classes/CSE 433/Project2/NumberAnalyzer.qsf
+C:/Users/cecen/Documents/Classes/CSE 433/Project2/db/NumberAnalyzer.db_info
+C:/Users/cecen/Documents/Classes/CSE 433/Project2/fib_number_analyzer.v
+C:/Users/cecen/Documents/Classes/CSE 433/Project2/incremental_db/compiled_partitions/NumberAnalyzer.db_info
+C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer.v
+C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer_tb.v
+C:/Users/cecen/Documents/Classes/CSE 433/Project2/odd_number_analyzer.v
+C:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v
+d:/programs/altera/quartus/quartus/bin64/assignment_defaults.qdf
+	======= Total: 10 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

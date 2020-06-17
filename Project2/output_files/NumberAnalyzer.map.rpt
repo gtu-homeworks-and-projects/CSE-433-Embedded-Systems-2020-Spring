@@ -1,0 +1,1164 @@
+Analysis & Synthesis report for NumberAnalyzer
+Sun Jun 07 15:06:22 2020
+Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |number_analyzer|pal_number_analyzer:pna|current_state
+  9. State Machine - |number_analyzer|fib_number_analyzer:fna|current_state
+ 10. State Machine - |number_analyzer|odd_number_analyzer:ona|current_state
+ 11. User-Specified and Inferred Latches
+ 12. Registers Removed During Synthesis
+ 13. Removed Registers Triggering Further Register Optimizations
+ 14. General Register Statistics
+ 15. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 16. Parameter Settings for User Entity Instance: odd_number_analyzer:ona
+ 17. Parameter Settings for User Entity Instance: fib_number_analyzer:fna
+ 18. Parameter Settings for User Entity Instance: pal_number_analyzer:pna
+ 19. Parameter Settings for Inferred Entity Instance: pal_number_analyzer:pna|lpm_divide:Mod0
+ 20. Parameter Settings for Inferred Entity Instance: pal_number_analyzer:pna|lpm_divide:Div0
+ 21. Elapsed Time Per Partition
+ 22. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                    ;
++------------------------------------+--------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sun Jun 07 15:06:22 2020      ;
+; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Web Edition ;
+; Revision Name                      ; NumberAnalyzer                             ;
+; Top-level Entity Name              ; number_analyzer                            ;
+; Family                             ; Cyclone III                                ;
+; Total logic elements               ; 1,561                                      ;
+;     Total combinational functions  ; 1,560                                      ;
+;     Dedicated logic registers      ; 13                                         ;
+; Total registers                    ; 13                                         ;
+; Total pins                         ; 39                                         ;
+; Total virtual pins                 ; 0                                          ;
+; Total memory bits                  ; 0                                          ;
+; Embedded Multiplier 9-bit elements ; 0                                          ;
+; Total PLLs                         ; 0                                          ;
++------------------------------------+--------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP3C16F484C6       ;                    ;
+; Top-level entity name                                                      ; number_analyzer    ; NumberAnalyzer     ;
+; Family name                                                                ; Cyclone III        ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-8         ;   0.0%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                       ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                   ; Library ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------+---------+
+; number_analyzer.v                ; yes             ; User Verilog HDL File        ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/number_analyzer.v            ;         ;
+; odd_number_analyzer.v            ; yes             ; User Verilog HDL File        ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/odd_number_analyzer.v        ;         ;
+; fib_number_analyzer.v            ; yes             ; User Verilog HDL File        ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/fib_number_analyzer.v        ;         ;
+; pal_number_analyzer.v            ; yes             ; User Verilog HDL File        ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/pal_number_analyzer.v        ;         ;
+; lpm_divide.tdf                   ; yes             ; Megafunction                 ; d:/programs/altera/quartus/quartus/libraries/megafunctions/lpm_divide.tdf      ;         ;
+; abs_divider.inc                  ; yes             ; Megafunction                 ; d:/programs/altera/quartus/quartus/libraries/megafunctions/abs_divider.inc     ;         ;
+; sign_div_unsign.inc              ; yes             ; Megafunction                 ; d:/programs/altera/quartus/quartus/libraries/megafunctions/sign_div_unsign.inc ;         ;
+; aglobal131.inc                   ; yes             ; Megafunction                 ; d:/programs/altera/quartus/quartus/libraries/megafunctions/aglobal131.inc      ;         ;
+; db/lpm_divide_jno.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/db/lpm_divide_jno.tdf        ;         ;
+; db/abs_divider_kbg.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/db/abs_divider_kbg.tdf       ;         ;
+; db/alt_u_div_t5f.tdf             ; yes             ; Auto-Generated Megafunction  ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/db/alt_u_div_t5f.tdf         ;         ;
+; db/add_sub_unc.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/db/add_sub_unc.tdf           ;         ;
+; db/add_sub_vnc.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/db/add_sub_vnc.tdf           ;         ;
+; db/lpm_abs_pt9.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/db/lpm_abs_pt9.tdf           ;         ;
+; db/lpm_abs_9v9.tdf               ; yes             ; Auto-Generated Megafunction  ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/db/lpm_abs_9v9.tdf           ;         ;
+; db/lpm_divide_gvo.tdf            ; yes             ; Auto-Generated Megafunction  ; C:/Users/cecen/Documents/Classes/CSE 433/Project2/db/lpm_divide_gvo.tdf        ;         ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------------+---------+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                                      ;
++---------------------------------------------+------------------------------------+
+; Resource                                    ; Usage                              ;
++---------------------------------------------+------------------------------------+
+; Estimated Total logic elements              ; 1,561                              ;
+;                                             ;                                    ;
+; Total combinational functions               ; 1560                               ;
+; Logic element usage by number of LUT inputs ;                                    ;
+;     -- 4 input functions                    ; 428                                ;
+;     -- 3 input functions                    ; 590                                ;
+;     -- <=2 input functions                  ; 542                                ;
+;                                             ;                                    ;
+; Logic elements by mode                      ;                                    ;
+;     -- normal mode                          ; 1176                               ;
+;     -- arithmetic mode                      ; 384                                ;
+;                                             ;                                    ;
+; Total registers                             ; 13                                 ;
+;     -- Dedicated logic registers            ; 13                                 ;
+;     -- I/O registers                        ; 0                                  ;
+;                                             ;                                    ;
+; I/O pins                                    ; 39                                 ;
+; Embedded Multiplier 9-bit elements          ; 0                                  ;
+; Maximum fan-out node                        ; pal_number_analyzer:pna|number[31] ;
+; Maximum fan-out                             ; 135                                ;
+; Total fan-out                               ; 4528                               ;
+; Average fan-out                             ; 2.74                               ;
++---------------------------------------------+------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                         ;
++------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node               ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                   ; Library Name ;
++------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------------+--------------+
+; |number_analyzer                         ; 1560 (1)          ; 13 (0)       ; 0           ; 0            ; 0       ; 0         ; 39   ; 0            ; |number_analyzer                                                                                                                      ; work         ;
+;    |fib_number_analyzer:fna|             ; 256 (256)         ; 5 (5)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|fib_number_analyzer:fna                                                                                              ; work         ;
+;    |odd_number_analyzer:ona|             ; 4 (4)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|odd_number_analyzer:ona                                                                                              ; work         ;
+;    |pal_number_analyzer:pna|             ; 1299 (308)        ; 6 (6)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna                                                                                              ; work         ;
+;       |lpm_divide:Div0|                  ; 488 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Div0                                                                              ; work         ;
+;          |lpm_divide_gvo:auto_generated| ; 488 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Div0|lpm_divide_gvo:auto_generated                                                ; work         ;
+;             |abs_divider_kbg:divider|    ; 488 (31)          ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Div0|lpm_divide_gvo:auto_generated|abs_divider_kbg:divider                        ; work         ;
+;                |alt_u_div_t5f:divider|   ; 449 (449)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Div0|lpm_divide_gvo:auto_generated|abs_divider_kbg:divider|alt_u_div_t5f:divider  ; work         ;
+;                |lpm_abs_9v9:my_abs_num|  ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Div0|lpm_divide_gvo:auto_generated|abs_divider_kbg:divider|lpm_abs_9v9:my_abs_num ; work         ;
+;       |lpm_divide:Mod0|                  ; 503 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Mod0                                                                              ; work         ;
+;          |lpm_divide_jno:auto_generated| ; 503 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Mod0|lpm_divide_jno:auto_generated                                                ; work         ;
+;             |abs_divider_kbg:divider|    ; 503 (5)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Mod0|lpm_divide_jno:auto_generated|abs_divider_kbg:divider                        ; work         ;
+;                |alt_u_div_t5f:divider|   ; 459 (459)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Mod0|lpm_divide_jno:auto_generated|abs_divider_kbg:divider|alt_u_div_t5f:divider  ; work         ;
+;                |lpm_abs_9v9:my_abs_num|  ; 39 (39)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |number_analyzer|pal_number_analyzer:pna|lpm_divide:Mod0|lpm_divide_jno:auto_generated|abs_divider_kbg:divider|lpm_abs_9v9:my_abs_num ; work         ;
++------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |number_analyzer|pal_number_analyzer:pna|current_state                                                                                ;
++------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
+; Name             ; current_state.S5 ; current_state.S4 ; current_state.S6 ; current_state.S2 ; current_state.S3 ; current_state.S1 ; current_state.S0 ;
++------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
+; current_state.S0 ; 0                ; 0                ; 0                ; 0                ; 0                ; 0                ; 0                ;
+; current_state.S1 ; 0                ; 0                ; 0                ; 0                ; 0                ; 1                ; 1                ;
+; current_state.S3 ; 0                ; 0                ; 0                ; 0                ; 1                ; 0                ; 1                ;
+; current_state.S2 ; 0                ; 0                ; 0                ; 1                ; 0                ; 0                ; 1                ;
+; current_state.S6 ; 0                ; 0                ; 1                ; 0                ; 0                ; 0                ; 1                ;
+; current_state.S4 ; 0                ; 1                ; 0                ; 0                ; 0                ; 0                ; 1                ;
+; current_state.S5 ; 1                ; 0                ; 0                ; 0                ; 0                ; 0                ; 1                ;
++------------------+------------------+------------------+------------------+------------------+------------------+------------------+------------------+
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------------------------------------+
+; State Machine - |number_analyzer|fib_number_analyzer:fna|current_state                                          ;
++------------------+------------------+------------------+------------------+------------------+------------------+
+; Name             ; current_state.S2 ; current_state.S3 ; current_state.S1 ; current_state.S0 ; current_state.S4 ;
++------------------+------------------+------------------+------------------+------------------+------------------+
+; current_state.S0 ; 0                ; 0                ; 0                ; 0                ; 0                ;
+; current_state.S1 ; 0                ; 0                ; 1                ; 1                ; 0                ;
+; current_state.S3 ; 0                ; 1                ; 0                ; 1                ; 0                ;
+; current_state.S2 ; 1                ; 0                ; 0                ; 1                ; 0                ;
+; current_state.S4 ; 0                ; 0                ; 0                ; 1                ; 1                ;
++------------------+------------------+------------------+------------------+------------------+------------------+
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------+
+; State Machine - |number_analyzer|odd_number_analyzer:ona|current_state                       ;
++------------------+------------------+------------------+------------------+------------------+
+; Name             ; current_state.S3 ; current_state.S2 ; current_state.S1 ; current_state.S0 ;
++------------------+------------------+------------------+------------------+------------------+
+; current_state.S0 ; 0                ; 0                ; 0                ; 0                ;
+; current_state.S1 ; 0                ; 0                ; 1                ; 1                ;
+; current_state.S2 ; 0                ; 1                ; 0                ; 1                ;
+; current_state.S3 ; 1                ; 0                ; 0                ; 1                ;
++------------------+------------------+------------------+------------------+------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                                      ;
++------------------------------------------------------+------------------------------------------+------------------------+
+; Latch Name                                           ; Latch Enable Signal                      ; Free of Timing Hazards ;
++------------------------------------------------------+------------------------------------------+------------------------+
+; fib_number_analyzer:fna|out_ready                    ; fib_number_analyzer:fna|current_state.S2 ; yes                    ;
+; pal_number_analyzer:pna|out_ready                    ; pal_number_analyzer:pna|out_ready        ; yes                    ;
+; odd_number_analyzer:ona|is_odd                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|is_fib                       ; fib_number_analyzer:fna|current_state.S2 ; yes                    ;
+; pal_number_analyzer:pna|is_pal                       ; pal_number_analyzer:pna|out_ready        ; yes                    ;
+; fib_number_analyzer:fna|num[0]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[0]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[1]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[1]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[2]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[2]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[3]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[3]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[4]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[4]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[5]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[5]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[6]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[6]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[7]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[7]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[8]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[8]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[9]                       ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[9]                  ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[10]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[10]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[11]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[11]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[12]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[12]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[13]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[13]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[14]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[14]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[15]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[15]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[16]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[16]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[17]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[17]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[18]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[18]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[19]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[19]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|num[20]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[20]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[21]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[21]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[22]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[22]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[23]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[23]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[24]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[24]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[25]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[25]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[26]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[26]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[27]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[27]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[28]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[28]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[29]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[29]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[30]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[30]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; fib_number_analyzer:fna|num[31]                      ; fib_number_analyzer:fna|current_state.S0 ; yes                    ;
+; fib_number_analyzer:fna|fib_temp[31]                 ; fib_number_analyzer:fna|next_state       ; yes                    ;
+; pal_number_analyzer:pna|total_digit_count[0]         ; pal_number_analyzer:pna|WideOr5          ; yes                    ;
+; pal_number_analyzer:pna|total_digit_count[1]         ; pal_number_analyzer:pna|WideOr5          ; yes                    ;
+; pal_number_analyzer:pna|total_digit_count[2]         ; pal_number_analyzer:pna|WideOr5          ; yes                    ;
+; pal_number_analyzer:pna|total_digit_count[3]         ; pal_number_analyzer:pna|WideOr5          ; yes                    ;
+; pal_number_analyzer:pna|total_digit_count[4]         ; pal_number_analyzer:pna|WideOr5          ; yes                    ;
+; pal_number_analyzer:pna|digit_index[4]               ; pal_number_analyzer:pna|WideOr6          ; yes                    ;
+; pal_number_analyzer:pna|index[4]                     ; pal_number_analyzer:pna|WideOr4          ; yes                    ;
+; pal_number_analyzer:pna|digit_index[3]               ; pal_number_analyzer:pna|WideOr6          ; yes                    ;
+; pal_number_analyzer:pna|index[3]                     ; pal_number_analyzer:pna|WideOr4          ; yes                    ;
+; pal_number_analyzer:pna|digit_index[2]               ; pal_number_analyzer:pna|WideOr6          ; yes                    ;
+; pal_number_analyzer:pna|index[2]                     ; pal_number_analyzer:pna|WideOr4          ; yes                    ;
+; pal_number_analyzer:pna|digit_index[1]               ; pal_number_analyzer:pna|WideOr6          ; yes                    ;
+; pal_number_analyzer:pna|index[1]                     ; pal_number_analyzer:pna|WideOr4          ; yes                    ;
+; pal_number_analyzer:pna|digit_index[0]               ; pal_number_analyzer:pna|WideOr6          ; yes                    ;
+; pal_number_analyzer:pna|index[0]                     ; pal_number_analyzer:pna|WideOr4          ; yes                    ;
+; pal_number_analyzer:pna|digits[8][0]                 ; pal_number_analyzer:pna|Selector61       ; yes                    ;
+; pal_number_analyzer:pna|digits[5][0]                 ; pal_number_analyzer:pna|Selector58       ; yes                    ;
+; pal_number_analyzer:pna|digits[6][0]                 ; pal_number_analyzer:pna|Selector59       ; yes                    ;
+; pal_number_analyzer:pna|digits[4][0]                 ; pal_number_analyzer:pna|Selector57       ; yes                    ;
+; pal_number_analyzer:pna|digits[7][0]                 ; pal_number_analyzer:pna|Selector60       ; yes                    ;
+; pal_number_analyzer:pna|digits[2][0]                 ; pal_number_analyzer:pna|Selector55       ; yes                    ;
+; pal_number_analyzer:pna|digits[1][0]                 ; pal_number_analyzer:pna|Selector54       ; yes                    ;
+; pal_number_analyzer:pna|digits[0][0]                 ; pal_number_analyzer:pna|Selector49       ; yes                    ;
+; pal_number_analyzer:pna|digits[3][0]                 ; pal_number_analyzer:pna|Selector56       ; yes                    ;
+; pal_number_analyzer:pna|digits[9][0]                 ; pal_number_analyzer:pna|Selector62       ; yes                    ;
+; pal_number_analyzer:pna|digits[5][1]                 ; pal_number_analyzer:pna|Selector58       ; yes                    ;
+; pal_number_analyzer:pna|digits[6][1]                 ; pal_number_analyzer:pna|Selector59       ; yes                    ;
+; pal_number_analyzer:pna|digits[4][1]                 ; pal_number_analyzer:pna|Selector57       ; yes                    ;
+; pal_number_analyzer:pna|digits[7][1]                 ; pal_number_analyzer:pna|Selector60       ; yes                    ;
+; pal_number_analyzer:pna|digits[8][1]                 ; pal_number_analyzer:pna|Selector61       ; yes                    ;
+; pal_number_analyzer:pna|digits[2][1]                 ; pal_number_analyzer:pna|Selector55       ; yes                    ;
+; Number of user-specified and inferred latches = 231  ;                                          ;                        ;
++------------------------------------------------------+------------------------------------------+------------------------+
+Table restricted to first 100 entries. Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
++-------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                              ;
++------------------------------------------+------------------------------------------------------+
+; Register name                            ; Reason for Removal                                   ;
++------------------------------------------+------------------------------------------------------+
+; pal_number_analyzer:pna|current_state~4  ; Lost fanout                                          ;
+; pal_number_analyzer:pna|current_state~5  ; Lost fanout                                          ;
+; pal_number_analyzer:pna|current_state~6  ; Lost fanout                                          ;
+; fib_number_analyzer:fna|current_state~4  ; Lost fanout                                          ;
+; fib_number_analyzer:fna|current_state~5  ; Lost fanout                                          ;
+; odd_number_analyzer:ona|current_state~4  ; Lost fanout                                          ;
+; odd_number_analyzer:ona|current_state~5  ; Lost fanout                                          ;
+; odd_number_analyzer:ona|current_state.S2 ; Lost fanout                                          ;
+; odd_number_analyzer:ona|current_state.S0 ; Merged with fib_number_analyzer:fna|current_state.S0 ;
+; pal_number_analyzer:pna|current_state.S0 ; Merged with fib_number_analyzer:fna|current_state.S0 ;
+; Total Number of Removed Registers = 10   ;                                                      ;
++------------------------------------------+------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                             ;
++-----------------------------------------+--------------------+------------------------------------------+
+; Register name                           ; Reason for Removal ; Registers Removed due to This Register   ;
++-----------------------------------------+--------------------+------------------------------------------+
+; odd_number_analyzer:ona|current_state~5 ; Lost Fanouts       ; odd_number_analyzer:ona|current_state.S2 ;
++-----------------------------------------+--------------------+------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 13    ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 13    ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                    ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
+; 10:1               ; 5 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |number_analyzer|pal_number_analyzer:pna|Mux0       ;
+; 10:1               ; 5 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |number_analyzer|pal_number_analyzer:pna|Mux5       ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |number_analyzer|pal_number_analyzer:pna|Selector17 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------+
+
+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: odd_number_analyzer:ona ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; S0             ; 00    ; Unsigned Binary                             ;
+; S1             ; 01    ; Unsigned Binary                             ;
+; S2             ; 10    ; Unsigned Binary                             ;
+; S3             ; 11    ; Unsigned Binary                             ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: fib_number_analyzer:fna ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; S0             ; 000   ; Unsigned Binary                             ;
+; S1             ; 001   ; Unsigned Binary                             ;
+; S2             ; 011   ; Unsigned Binary                             ;
+; S3             ; 010   ; Unsigned Binary                             ;
+; S4             ; 110   ; Unsigned Binary                             ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: pal_number_analyzer:pna ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; S0             ; 000   ; Unsigned Binary                             ;
+; S1             ; 001   ; Unsigned Binary                             ;
+; S2             ; 011   ; Unsigned Binary                             ;
+; S3             ; 010   ; Unsigned Binary                             ;
+; S4             ; 110   ; Unsigned Binary                             ;
+; S5             ; 111   ; Unsigned Binary                             ;
+; S6             ; 101   ; Unsigned Binary                             ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: pal_number_analyzer:pna|lpm_divide:Mod0 ;
++------------------------+----------------+------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                           ;
++------------------------+----------------+------------------------------------------------+
+; LPM_WIDTHN             ; 32             ; Untyped                                        ;
+; LPM_WIDTHD             ; 5              ; Untyped                                        ;
+; LPM_NREPRESENTATION    ; SIGNED         ; Untyped                                        ;
+; LPM_DREPRESENTATION    ; SIGNED         ; Untyped                                        ;
+; LPM_PIPELINE           ; 0              ; Untyped                                        ;
+; LPM_REMAINDERPOSITIVE  ; FALSE          ; Untyped                                        ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                        ;
+; CBXI_PARAMETER         ; lpm_divide_jno ; Untyped                                        ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                        ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                        ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                     ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                   ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                   ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                 ;
++------------------------+----------------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: pal_number_analyzer:pna|lpm_divide:Div0 ;
++------------------------+----------------+------------------------------------------------+
+; Parameter Name         ; Value          ; Type                                           ;
++------------------------+----------------+------------------------------------------------+
+; LPM_WIDTHN             ; 32             ; Untyped                                        ;
+; LPM_WIDTHD             ; 5              ; Untyped                                        ;
+; LPM_NREPRESENTATION    ; SIGNED         ; Untyped                                        ;
+; LPM_DREPRESENTATION    ; SIGNED         ; Untyped                                        ;
+; LPM_PIPELINE           ; 0              ; Untyped                                        ;
+; LPM_REMAINDERPOSITIVE  ; FALSE          ; Untyped                                        ;
+; MAXIMIZE_SPEED         ; 5              ; Untyped                                        ;
+; CBXI_PARAMETER         ; lpm_divide_gvo ; Untyped                                        ;
+; CARRY_CHAIN            ; MANUAL         ; Untyped                                        ;
+; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                        ;
+; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                     ;
+; IGNORE_CARRY_BUFFERS   ; OFF            ; IGNORE_CARRY                                   ;
+; AUTO_CASCADE_CHAINS    ; ON             ; AUTO_CASCADE                                   ;
+; IGNORE_CASCADE_BUFFERS ; OFF            ; IGNORE_CASCADE                                 ;
++------------------------+----------------+------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:03     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.1.0 Build 162 10/23/2013 SJ Web Edition
+    Info: Processing started: Sun Jun 07 15:06:15 2020
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off NumberAnalyzer -c NumberAnalyzer
+Info (11104): Parallel Compilation has detected 8 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 4 of the 4 physical processors detected instead.
+Info (12021): Found 1 design units, including 1 entities, in source file number_analyzer.v
+    Info (12023): Found entity 1: number_analyzer
+Info (12021): Found 1 design units, including 1 entities, in source file odd_number_analyzer.v
+    Info (12023): Found entity 1: odd_number_analyzer
+Info (12021): Found 1 design units, including 1 entities, in source file number_analyzer_tb.v
+    Info (12023): Found entity 1: number_analyzer_tb
+Info (12021): Found 1 design units, including 1 entities, in source file fib_number_analyzer.v
+    Info (12023): Found entity 1: fib_number_analyzer
+Info (12021): Found 1 design units, including 1 entities, in source file pal_number_analyzer.v
+    Info (12023): Found entity 1: pal_number_analyzer
+Info (12127): Elaborating entity "number_analyzer" for the top level hierarchy
+Info (12128): Elaborating entity "odd_number_analyzer" for hierarchy "odd_number_analyzer:ona"
+Warning (10235): Verilog HDL Always Construct warning at odd_number_analyzer.v(56): variable "in_number" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Info (10264): Verilog HDL Case Statement information at odd_number_analyzer.v(54): all case item expressions in this case statement are onehot
+Warning (10240): Verilog HDL Always Construct warning at odd_number_analyzer.v(52): inferring latch(es) for variable "num", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at odd_number_analyzer.v(52): inferring latch(es) for variable "is_odd", which holds its previous value in one or more paths through the always construct
+Info (10041): Inferred latch for "is_odd" at odd_number_analyzer.v(52)
+Info (10041): Inferred latch for "num" at odd_number_analyzer.v(52)
+Info (12128): Elaborating entity "fib_number_analyzer" for hierarchy "fib_number_analyzer:fna"
+Warning (10235): Verilog HDL Always Construct warning at fib_number_analyzer.v(68): variable "in_number" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at fib_number_analyzer.v(71): variable "fib_0" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at fib_number_analyzer.v(71): variable "fib_1" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at fib_number_analyzer.v(72): variable "fib_1" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at fib_number_analyzer.v(73): variable "fib_0" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at fib_number_analyzer.v(73): variable "fib_1" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Info (10264): Verilog HDL Case Statement information at fib_number_analyzer.v(61): all case item expressions in this case statement are onehot
+Warning (10240): Verilog HDL Always Construct warning at fib_number_analyzer.v(59): inferring latch(es) for variable "fib_0", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at fib_number_analyzer.v(59): inferring latch(es) for variable "fib_1", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at fib_number_analyzer.v(59): inferring latch(es) for variable "fib_temp", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at fib_number_analyzer.v(59): inferring latch(es) for variable "is_fib", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at fib_number_analyzer.v(59): inferring latch(es) for variable "out_ready", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at fib_number_analyzer.v(59): inferring latch(es) for variable "num", which holds its previous value in one or more paths through the always construct
+Info (10041): Inferred latch for "num[0]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[1]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[2]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[3]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[4]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[5]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[6]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[7]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[8]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[9]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[10]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[11]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[12]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[13]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[14]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[15]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[16]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[17]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[18]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[19]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[20]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[21]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[22]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[23]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[24]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[25]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[26]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[27]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[28]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[29]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[30]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "num[31]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "out_ready" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "is_fib" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[0]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[1]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[2]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[3]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[4]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[5]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[6]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[7]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[8]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[9]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[10]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[11]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[12]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[13]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[14]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[15]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[16]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[17]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[18]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[19]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[20]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[21]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[22]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[23]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[24]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[25]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[26]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[27]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[28]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[29]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[30]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_temp[31]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[0]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[1]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[2]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[3]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[4]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[5]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[6]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[7]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[8]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[9]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[10]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[11]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[12]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[13]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[14]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[15]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[16]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[17]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[18]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[19]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[20]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[21]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[22]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[23]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[24]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[25]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[26]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[27]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[28]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[29]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[30]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_1[31]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[0]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[1]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[2]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[3]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[4]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[5]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[6]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[7]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[8]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[9]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[10]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[11]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[12]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[13]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[14]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[15]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[16]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[17]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[18]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[19]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[20]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[21]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[22]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[23]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[24]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[25]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[26]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[27]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[28]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[29]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[30]" at fib_number_analyzer.v(59)
+Info (10041): Inferred latch for "fib_0[31]" at fib_number_analyzer.v(59)
+Info (12128): Elaborating entity "pal_number_analyzer" for hierarchy "pal_number_analyzer:pna"
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(52): variable "digit_index" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(53): variable "digit_index" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(88): variable "in_number" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(92): variable "number" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10230): Verilog HDL assignment warning at pal_number_analyzer.v(92): truncated value with size 32 to match size of target (5)
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(92): variable "total_digit_count" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(93): variable "number" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(94): variable "total_digit_count" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10230): Verilog HDL assignment warning at pal_number_analyzer.v(94): truncated value with size 32 to match size of target (5)
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(95): variable "total_digit_count" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10230): Verilog HDL assignment warning at pal_number_analyzer.v(95): truncated value with size 32 to match size of target (5)
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(98): variable "index" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10230): Verilog HDL assignment warning at pal_number_analyzer.v(98): truncated value with size 32 to match size of target (5)
+Warning (10235): Verilog HDL Always Construct warning at pal_number_analyzer.v(99): variable "digit_index" is read inside the Always Construct but isn't in the Always Construct's Event Control
+Warning (10230): Verilog HDL assignment warning at pal_number_analyzer.v(99): truncated value with size 32 to match size of target (5)
+Info (10264): Verilog HDL Case Statement information at pal_number_analyzer.v(72): all case item expressions in this case statement are onehot
+Warning (10240): Verilog HDL Always Construct warning at pal_number_analyzer.v(70): inferring latch(es) for variable "is_pal", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at pal_number_analyzer.v(70): inferring latch(es) for variable "out_ready", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at pal_number_analyzer.v(70): inferring latch(es) for variable "total_digit_count", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at pal_number_analyzer.v(70): inferring latch(es) for variable "index", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at pal_number_analyzer.v(70): inferring latch(es) for variable "number", which holds its previous value in one or more paths through the always construct
+Warning (10240): Verilog HDL Always Construct warning at pal_number_analyzer.v(70): inferring latch(es) for variable "digit_index", which holds its previous value in one or more paths through the always construct
+Info (10041): Inferred latch for "digit_index[0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digit_index[1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digit_index[2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digit_index[3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digit_index[4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[5]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[6]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[7]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[8]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[9]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[10]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[11]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[12]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[13]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[14]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[15]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[16]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[17]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[18]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[19]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[20]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[21]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[22]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[23]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[24]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[25]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[26]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[27]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[28]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[29]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[30]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "number[31]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "index[0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "index[1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "index[2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "index[3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "index[4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[0][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[0][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[0][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[0][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[0][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[1][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[1][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[1][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[1][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[1][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[2][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[2][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[2][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[2][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[2][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[3][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[3][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[3][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[3][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[3][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[4][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[4][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[4][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[4][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[4][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[5][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[5][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[5][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[5][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[5][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[6][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[6][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[6][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[6][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[6][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[7][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[7][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[7][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[7][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[7][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[8][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[8][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[8][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[8][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[8][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[9][0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[9][1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[9][2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[9][3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "digits[9][4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "total_digit_count[0]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "total_digit_count[1]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "total_digit_count[2]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "total_digit_count[3]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "total_digit_count[4]" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "out_ready" at pal_number_analyzer.v(70)
+Info (10041): Inferred latch for "is_pal" at pal_number_analyzer.v(70)
+Info (278001): Inferred 2 megafunctions from design logic
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "pal_number_analyzer:pna|Mod0"
+    Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "pal_number_analyzer:pna|Div0"
+Info (12130): Elaborated megafunction instantiation "pal_number_analyzer:pna|lpm_divide:Mod0"
+Info (12133): Instantiated megafunction "pal_number_analyzer:pna|lpm_divide:Mod0" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "32"
+    Info (12134): Parameter "LPM_WIDTHD" = "5"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_HINT" = "LPM_REMAINDERPOSITIVE=FALSE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_jno.tdf
+    Info (12023): Found entity 1: lpm_divide_jno
+Info (12021): Found 1 design units, including 1 entities, in source file db/abs_divider_kbg.tdf
+    Info (12023): Found entity 1: abs_divider_kbg
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_t5f.tdf
+    Info (12023): Found entity 1: alt_u_div_t5f
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_unc.tdf
+    Info (12023): Found entity 1: add_sub_unc
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_vnc.tdf
+    Info (12023): Found entity 1: add_sub_vnc
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_abs_pt9.tdf
+    Info (12023): Found entity 1: lpm_abs_pt9
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_abs_9v9.tdf
+    Info (12023): Found entity 1: lpm_abs_9v9
+Info (12130): Elaborated megafunction instantiation "pal_number_analyzer:pna|lpm_divide:Div0"
+Info (12133): Instantiated megafunction "pal_number_analyzer:pna|lpm_divide:Div0" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTHN" = "32"
+    Info (12134): Parameter "LPM_WIDTHD" = "5"
+    Info (12134): Parameter "LPM_NREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_DREPRESENTATION" = "SIGNED"
+    Info (12134): Parameter "LPM_HINT" = "LPM_REMAINDERPOSITIVE=FALSE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_gvo.tdf
+    Info (12023): Found entity 1: lpm_divide_gvo
+Info (13014): Ignored 62 buffer(s)
+    Info (13016): Ignored 62 CARRY_SUM buffer(s)
+Info (13025): Duplicate LATCH primitives merged into single LATCH primitive
+    Info (13026): Duplicate LATCH primitive "odd_number_analyzer:ona|num" merged with LATCH primitive "fib_number_analyzer:fna|num[0]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[1]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[1]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[2]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[2]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[3]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[3]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[4]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[4]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[5]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[5]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[6]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[6]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[7]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[7]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[8]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[8]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[9]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[9]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[10]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[10]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[11]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[11]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[12]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[12]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[13]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[13]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[14]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[14]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[15]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[15]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[16]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[16]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[17]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[17]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[18]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[18]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[19]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[19]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[20]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[20]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[21]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[21]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[22]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[22]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[23]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[23]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[24]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[24]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[25]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[25]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[26]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[26]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[27]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[27]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[28]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[28]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[29]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[29]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[30]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[30]"
+    Info (13026): Duplicate LATCH primitive "fib_number_analyzer:fna|fib_1[31]" merged with LATCH primitive "fib_number_analyzer:fna|fib_temp[31]"
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[5] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[6] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[7] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[8] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[9] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[10] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[11] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[12] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[13] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[14] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[15] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[16] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[17] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[18] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[19] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[20] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[21] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[22] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[23] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[24] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[25] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[26] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[27] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[28] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[29] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[30] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_temp[31] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[8][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[5][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[6][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[4][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[7][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[2][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[1][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[0][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[3][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[9][0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[5][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[6][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[4][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[7][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[8][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[2][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[1][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[0][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[3][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[9][1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[5][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[6][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[4][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[7][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[8][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[2][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[1][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[0][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[3][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[9][2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[5][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[6][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[4][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[7][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[8][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[2][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[1][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[0][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[3][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[9][3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[5][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[6][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[4][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[7][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[8][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[2][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[1][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[0][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[3][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch pal_number_analyzer:pna|digits[9][4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal pal_number_analyzer:pna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_1[0] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[1] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[2] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[3] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[4] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[5] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[6] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[7] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[8] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[9] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[10] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[11] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[12] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[13] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[14] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[15] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[16] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[17] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[18] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[19] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[20] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[21] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[22] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[23] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[24] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[25] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[26] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[27] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[28] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[29] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[30] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Warning (13012): Latch fib_number_analyzer:fna|fib_0[31] has unsafe behavior
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal fib_number_analyzer:fna|current_state.S2
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 8 registers lost all their fanouts during netlist optimizations.
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 1600 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 35 input pins
+    Info (21059): Implemented 4 output pins
+    Info (21061): Implemented 1561 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 266 warnings
+    Info: Peak virtual memory: 4680 megabytes
+    Info: Processing ended: Sun Jun 07 15:06:22 2020
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:03
+
+
