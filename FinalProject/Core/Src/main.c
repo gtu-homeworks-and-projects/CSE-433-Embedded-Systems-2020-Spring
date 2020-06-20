@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "string.h"
 #include <IR_Remote.h>
+#include <stdlib.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,10 +45,24 @@ HAL_TIM_StateTypeDef pwm;
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim4;
 
+UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-#define STR_LEN 1000
+#define STR_LEN 300
+#define SHORT_STR_LEN 50
+uint16_t * rawData = NULL;
+unsigned int rawLen = 0;
+uint32_t protocolCode = 0;
+int protocolBits = 0;
+int protocol= UNUSED;
+uint8_t recBuffer[STR_LEN];
+
+char trans_str[STR_LEN];
+remote_mode mode = NONE;
+int should_receive = 1;
+char delim[] = " ";
+int len = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -55,8 +70,9 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM4_Init(void);
+static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+void reset();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -94,76 +110,84 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM4_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
-  char trans_str[STR_LEN] = {0,};
-  my_enableIRIn();
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	static char *decode_str[] = {"UNUSED", "UNKNOWN", "RC5", "RC6", "NEC", "SONY", "PANASONIC", "JVC", "SAMSUNG", "WHYNTER", "AIWA_RC_T501", "LG", "SANYO", "MITSUBISHI", "DISH", "SHARP", "DENON", "PRONTO"};
-	uint16_t * rawData = NULL;
-	uint32_t value = 0;
-	int valBits = 0;
-	int usec_period = USECPERTICK;
-	unsigned int rawLen = 0;
-	int protocol=0;
 	while (1)
 	{
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-		int len=0;
-		if (HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == GPIO_PIN_RESET && rawLen > 0) {
-			HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-			HAL_Delay(500);
-			HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-
-			if (protocol == SAMSUNG){
-				sendSAMSUNG(value, valBits);
-			} else {
-				sendRaw(rawData, rawLen, 38);
+		switch(mode) {
+		case TRAN:
+			if (rawLen > 0 || protocolBits > 0) {
+				HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+				send(rawData, rawLen, protocolCode, protocolBits, protocol);
+				char message[5] = "TOK";
+				HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+			}
+			reset();
+			break;
+		case DECODE:
+			if (protocol == UNKNOWN) {
+				if (rawData) {
+					free(rawData);
+				}
+				rawData = (uint16_t *) calloc(rawLen, sizeof(uint16_t));
+				char *ptr = strtok(trans_str, delim);
+				int i = 0;
+				while(ptr != NULL && i < rawLen)
+				{
+					rawData[i] = atoi(ptr);
+					ptr = strtok(NULL, delim);
+					i++;
+				}
+			}
+			else {
+				char *ptr = strtok(trans_str, delim);
+				protocolBits = atoi(ptr);
+				ptr = strtok(NULL, delim);
+				protocolCode = strtoul(ptr, NULL, 10);
 			}
 
-			HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-			HAL_Delay(500);
-			HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-		}
+			mode = TRAN;
+			break;
+		case RECV:
+			if (in_enabled == 0) {
+				my_enableIRIn();
+			}
 
-		if(my_decode(&results))
-		{
-			memset(trans_str, 0, STR_LEN);
-			sprintf(trans_str, "Code: %lu | Type: %s | Bits: %d | RawLen: %d\r\n", results.value, decode_str[results.decode_type + 1], results.bits, results.rawlen);
-			len = strlen(trans_str);
-			HAL_UART_Transmit(&huart2, (uint8_t*)trans_str, len, 100);
-			for (int i = 0; i < results.rawlen; i+=5) {
+			if(my_decode(&results))
+			{
+				HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
 				memset(trans_str, 0, STR_LEN);
-				sprintf(trans_str, "T[%d-%d]: %d %d %d %d %d\r\n", i, i+4, results.rawbuf[i]*usec_period, results.rawbuf[i+1]*usec_period, results.rawbuf[i+2]*usec_period, results.rawbuf[i+3]*usec_period, results.rawbuf[i+4]*usec_period);
-				HAL_UART_Transmit(&huart2, (uint8_t*)trans_str, len, 100);
+				sprintf(trans_str, "%d %d", results.decode_type, results.rawlen);
+				if (results.rawlen > 0) {
+					for (int i = 0; i < results.rawlen; ++i) {
+						sprintf(trans_str, "%s %d", trans_str, results.rawbuf[i]);
+					}
+				}
+				sprintf(trans_str, "%s %d", trans_str, results.bits);
+				if (results.bits > 0) {
+					sprintf(trans_str, "%s %u", trans_str, results.value);
+				}
+				len = strlen(trans_str);
+				HAL_UART_Transmit(&huart1, trans_str, len, 5000); // CHANGE THIS TO IT Mode After DEBUG
+
+				HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+				reset();
 			}
-
-			if (rawData) {
-				free(rawData);
-			}
-			rawData = (uint16_t *) calloc(results.rawlen, sizeof(uint16_t));
-			memcpy(rawData, results.rawbuf, sizeof(uint16_t) * results.rawlen);
-			rawLen = results.rawlen;
-			value = results.value;
-			protocol = results.decode_type;
-			valBits = results.bits;
-
-			HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-			HAL_Delay(500);
-			HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-
-			HAL_Delay(300);
-			my_resume(); // Resume receiving.
+			break;
 		}
 
-
+		if (should_receive) {
+			HAL_UART_Receive_IT(&huart1, recBuffer, 4);
+		}
 	}
   /* USER CODE END 3 */
 }
@@ -271,6 +295,40 @@ static void MX_TIM4_Init(void)
 }
 
 /**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+  //__HAL_UART_ENABLE_IT(&huart1, UART_IT_TC); // TX Flag
+  __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE); // RX Flag
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
   * @brief USART2 Initialization Function
   * @param None
   * @retval None
@@ -286,7 +344,7 @@ static void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 9600;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -334,9 +392,88 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : IR_In_Pin */
+  GPIO_InitStruct.Pin = IR_In_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(IR_In_GPIO_Port, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */
+void reset() {
+	mode = NONE;
+	protocol = UNUSED;
+	protocolBits = 0;
+	protocolCode = 0;
+	if (rawData) {
+		free(rawData);
+	}
+	rawLen = 0;
+	should_receive = 1;
+	my_disable();
+}
+// Only use recBuffer here. Otherwise it wouldnt be complete.
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	if (huart->Instance == USART1){
+		int is_ok = 0;
+		char message[5] = "OK";
+
+		if (mode == NONE) {
+			if (protocol != UNUSED) {
+				memset(trans_str, 0, STR_LEN);
+				len = strlen(recBuffer);
+				memcpy(trans_str, recBuffer, sizeof(char) * len);
+				mode = DECODE;
+				memset(recBuffer, 0, STR_LEN);
+				HAL_UART_Transmit(&huart1, message, 2, 10);
+				return;
+			}
+		}
+
+		if (strcmp(recBuffer, "RUOK") == 0) {
+			// Are you ok message.
+			protocol = UNUSED;
+			is_ok = 1;
+		}
+		else if (strcmp(recBuffer, "RSET") == 0) {
+			// Reset message. Reset everything.
+			reset();
+			is_ok = 1;
+		}
+		else if (strcmp(recBuffer, "RECV") == 0) {
+			mode = RECV;
+			is_ok = 1;
+		}
+		else if (recBuffer[0] == 'R' && recBuffer[1] == 'W') {
+			// Raw command being sent. Prepare to receive raw timings array
+			int len = atoi(&recBuffer[2]);
+			if (len > 0 && len < 100) {
+				protocol = UNKNOWN;
+				rawLen = len;
+			}
+			should_receive = 0;
+			HAL_UART_Receive_IT(&huart1, recBuffer, STR_LEN);
+			is_ok = 1;
+		}
+		else if (recBuffer[0] == 'R') {
+			// Raw command being sent. Prepare to receive raw timings array
+			int prot = atoi(&recBuffer[1]);
+			if (prot > 0 && prot < 100) {
+				protocol = prot;
+			}
+			should_receive = 0;
+			HAL_UART_Receive_IT(&huart1, recBuffer, SHORT_STR_LEN);
+			is_ok = 1;
+		}
+		memset(recBuffer, 0, STR_LEN);
+		if (is_ok == 0) {
+			HAL_NVIC_SystemReset();
+		}
+		HAL_UART_Transmit(&huart1, message, 2, 10);
+	}
+}
 
 /* USER CODE END 4 */
 

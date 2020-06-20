@@ -8,6 +8,48 @@ void DWT_Init()
 }
 /////////////////////////////////////////////////////////////////////////////////
 
+void send(uint16_t buf[], unsigned int len, unsigned long data, int nbits, decode_type_t protocol)
+{
+	if (protocol == UNKNOWN) {
+		sendRaw(buf, len, 38);
+	}
+	else if (protocol == RC5) {
+		sendRC5(data, nbits);
+	}
+	else if (protocol == RC6) {
+		sendRC6(data, nbits);
+	}
+	else if (protocol == RC6) {
+		sendRC6(data, nbits);
+	}
+	else if (protocol == NEC) {
+		sendNEC(data, nbits);
+	}
+	else if (protocol == SONY) {
+		sendSony(data, nbits);
+	}
+	else if (protocol == PANASONIC) {
+		sendPanasonic(nbits, data);
+	}
+	else if (protocol == JVC) {
+		sendJVC(data, nbits, 0);
+	}
+	else if (protocol == SAMSUNG) {
+		sendSAMSUNG(data, nbits);
+	}
+	else if (protocol == WHYNTER) {
+		sendWhynter(data, nbits);
+	}
+	else if (protocol == AIWA_RC_T501) {
+		sendAiwaRCT501(data);
+	}
+	else if (protocol == LG) {
+		sendLG(data, nbits);
+	}
+	else if (protocol == DENON) {
+		sendDenon(data, nbits);
+	}
+}
 
 void sendRaw(uint16_t buf[], unsigned int len, uint8_t hz)
 {
@@ -46,6 +88,7 @@ void enableIROut(uint8_t khz)
 	pwm_pulse = pwm_freq / 3;
 
 	HAL_TIM_Base_DeInit(&htim4);
+	in_enabled = 0;
 
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 	TIM_MasterConfigTypeDef sMasterConfig = {0};
@@ -73,6 +116,7 @@ void enableIROut(uint8_t khz)
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 	HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1);
 	HAL_TIM_MspPostInit(&htim4);
+	out_enabled = 1;
 }
 
 void custom_delay_usec(unsigned long us)

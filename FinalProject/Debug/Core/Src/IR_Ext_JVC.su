@@ -1,1 +1,2 @@
+IR_Ext_JVC.c:27:6:sendJVC	32	static
 IR_Ext_JVC.c:57:9:decodeJVC	32	static

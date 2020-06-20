@@ -1,5 +1,8 @@
 #include "IR_Remote.h"
 
+int out_enabled = 0;
+int in_enabled = 0;
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim == &htim4)
@@ -157,6 +160,7 @@ void my_enableIRIn() // initialization
 	DWT_Init();
 
 	HAL_TIM_Base_DeInit(&htim4);
+	out_enabled = 0;
 
 	TIM_ClockConfigTypeDef sClockSourceConfig = {0};
 	TIM_MasterConfigTypeDef sMasterConfig = {0};
@@ -178,6 +182,13 @@ void my_enableIRIn() // initialization
 	irparams.rawlen = 0;
 
 	HAL_TIM_Base_Start_IT(&htim4);
+	in_enabled = 1;
+}
+
+void my_disable(){
+	HAL_TIM_Base_DeInit(&htim4);
+	out_enabled = 0;
+	in_enabled = 0;
 }
 
 uint8_t my_isIdle() // Return if receiving new IR signals

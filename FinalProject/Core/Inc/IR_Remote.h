@@ -83,6 +83,13 @@ typedef enum
 		PRONTO = 16,
 } decode_type_t;
 
+typedef enum
+{
+		RECV = 0,
+		TRAN = 1,
+		NONE = 2,
+		DECODE = 3
+} remote_mode;
 
 // Results returned from the decoder
 typedef struct
@@ -98,6 +105,9 @@ typedef struct
 
 decode_results results;
 
+extern int out_enabled;
+extern int in_enabled;
+
 // Mark & Space matching functions
 int MATCH(int measured, int desired);
 int MATCH_MARK(int measured_ticks, int desired_us);
@@ -110,6 +120,7 @@ long decodeHash(decode_results *results);
 int compare(unsigned int oldval, unsigned int newval);
 void my_enableIRIn();
 void my_resume();
+void my_disable();
 
 ////////////////////////////////////////////////////////////
 #define DECODE_RC5           1
@@ -124,23 +135,23 @@ void my_resume();
 #define DECODE_SONY          1
 #define SEND_SONY            1
 
-#define DECODE_PANASONIC     0
-#define SEND_PANASONIC       0
+#define DECODE_PANASONIC     1
+#define SEND_PANASONIC       1
 
 #define DECODE_JVC           1
-#define SEND_JVC             0
+#define SEND_JVC             1
 
 #define DECODE_SAMSUNG       1
 #define SEND_SAMSUNG         1
 
-#define DECODE_WHYNTER       0
-#define SEND_WHYNTER         0
+#define DECODE_WHYNTER       1
+#define SEND_WHYNTER         1
 
-#define DECODE_AIWA_RC_T501  0
-#define SEND_AIWA_RC_T501    0
+#define DECODE_AIWA_RC_T501  1
+#define SEND_AIWA_RC_T501    1
 
 #define DECODE_LG            1
-#define SEND_LG              0
+#define SEND_LG              1
 
 #define DECODE_SANYO         0
 #define SEND_SANYO           0
@@ -154,8 +165,8 @@ void my_resume();
 #define DECODE_SHARP         0
 #define SEND_SHARP           0
 
-#define DECODE_DENON         0
-#define SEND_DENON           0
+#define DECODE_DENON         1
+#define SEND_DENON           1
 
 #define DECODE_PRONTO        0
 #define SEND_PRONTO          0
@@ -232,7 +243,7 @@ void enableIROut(uint8_t khz) ;
 void mark(unsigned int usec);
 void space(unsigned int usec);
 void sendRaw(uint16_t buf[], unsigned int len, uint8_t hz);
-
+void send(uint16_t buf[], unsigned int len, unsigned long data, int nbits, decode_type_t protocol);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 #if SEND_RC5
 	void sendRC5(unsigned long data, int nbits);
