@@ -26,6 +26,10 @@
 #include "string.h"
 #include <IR_Remote.h>
 #include <stdlib.h>
+//#include "spi.h"
+//#include "gpio.h"
+#include "max7219_digits.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,6 +47,9 @@ HAL_TIM_StateTypeDef pwm;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+SPI_HandleTypeDef hspi2;
+
+TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
 
 UART_HandleTypeDef huart1;
@@ -63,6 +70,12 @@ remote_mode mode = NONE;
 int should_receive = 1;
 char delim[] = " ";
 int len = 0;
+int textIndex = -1;
+int textDirection = 1;
+int configMode = 0;
+int bt_connected = 0;
+int hasCalled = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -71,6 +84,8 @@ static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_SPI2_Init(void);
+static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 void reset();
 /* USER CODE END PFP */
@@ -111,8 +126,25 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM4_Init();
   MX_USART1_UART_Init();
+  MX_SPI2_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT(&htim3);
+  HAL_GPIO_WritePin(GPIOA, MAX7219_CS_Pin|TEST_Pin, GPIO_PIN_RESET);
+  MAX7219_Init(&hspi2);
+  HAL_Delay(1000);
+  //MAX7219_ClearAll();
+  //MAX7219_PutString(0, "YALOLI");
+//  HAL_Delay(500);
+//  HAL_UART_Transmit(&huart1, "AT\n", 3, 100);
+//  HAL_UART_Receive(&huart1, recBuffer, SHORT_STR_LEN, 200);
+//  HAL_UART_Transmit(&huart1, "AT+NAMERC-Clone \n", 17, 100);
+//  HAL_UART_Receive(&huart1, recBuffer, SHORT_STR_LEN, 200);
+//  HAL_Delay(500);
+//  HAL_UART_Transmit(&huart1, "AT+PIN1214 \n", 12, 100);
+//  HAL_UART_Receive(&huart1, recBuffer, SHORT_STR_LEN, 200);
+  HAL_UART_Transmit(&huart1, "OK\n", 3, 10);
+  HAL_UART_Receive_IT(&huart1, recBuffer, 4);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,17 +154,49 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		if (HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == GPIO_PIN_RESET) {
+			HAL_Delay(500);
+			configMode = !configMode;
+		}
+
+		if (configMode) {
+			MAX7219_ClearAll();
+			MAX7219_PutString(0, "BL-CONF");
+			__HAL_UART_ENABLE(&huart2);
+			HAL_UART_AbortReceive_IT(&huart1);
+			HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+			HAL_UART_Receive(&huart2, recBuffer, SHORT_STR_LEN, 100);
+			if (recBuffer[0] == 'A' && recBuffer[1] == 'T') {
+				len = strlen(recBuffer);
+				HAL_UART_Transmit(&huart1, recBuffer, len, 100);
+				HAL_Delay(500);
+				HAL_UART_Receive(&huart1, recBuffer, SHORT_STR_LEN, 200);
+				len = strlen(recBuffer);
+				HAL_UART_Transmit(&huart2, recBuffer, len, 100);
+			}
+
+			memset(recBuffer, 0, STR_LEN);
+			continue;
+		}
+		__HAL_UART_DISABLE(&huart2);
+		HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 		switch(mode) {
 		case TRAN:
+			MAX7219_ClearAll();
+			MAX7219_PutString(0, "sEnd");
+			bt_connected = 0;
 			if (rawLen > 0 || protocolBits > 0) {
 				HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 				send(rawData, rawLen, protocolCode, protocolBits, protocol);
-				char message[5] = "TOK";
 				HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 			}
 			reset();
+			HAL_UART_Receive_IT(&huart1, recBuffer, 4);
 			break;
 		case DECODE:
+			MAX7219_ClearAll();
+			MAX7219_PutString(0, "dECodE");
+			bt_connected = 0;
 			if (protocol == UNKNOWN) {
 				if (rawData) {
 					free(rawData);
@@ -157,8 +221,11 @@ int main(void)
 			mode = TRAN;
 			break;
 		case RECV:
+			bt_connected = 0;
 			if (in_enabled == 0) {
 				my_enableIRIn();
+				MAX7219_ClearAll();
+				MAX7219_PutString(0, "ClONE");
 			}
 
 			if(my_decode(&results))
@@ -174,20 +241,41 @@ int main(void)
 				}
 				sprintf(trans_str, "%s %d", trans_str, results.bits);
 				if (results.bits > 0) {
-					sprintf(trans_str, "%s %u", trans_str, results.value);
+					sprintf(trans_str, "%s %u\n", trans_str, results.value);
 				}
 				len = strlen(trans_str);
-				HAL_UART_Transmit(&huart1, trans_str, len, 5000); // CHANGE THIS TO IT Mode After DEBUG
+				HAL_UART_Transmit_IT(&huart1, trans_str, len); // CHANGE THIS TO IT Mode After DEBUG
 
 				HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 				reset();
+				HAL_UART_Receive_IT(&huart1, recBuffer, 4);
 			}
 			break;
+		default:
+			if (should_receive) {
+				HAL_UART_Receive_IT(&huart1, recBuffer, 4);
+			}
+
+			if (bt_connected) continue;
+			if (textIndex > 1) {
+				textIndex = 1;
+				textDirection = 0;
+			}
+			if(textIndex < -1) {
+				textIndex = -1;
+				textDirection = 1;
+			}
+			MAX7219_ClearAll();
+			MAX7219_PutString(textIndex, "RC-ClONE");
+			if (textDirection) {
+				textIndex++;
+			}
+			else {
+				textIndex--;
+			}
+			HAL_Delay(100);
 		}
 
-		if (should_receive) {
-			HAL_UART_Receive_IT(&huart1, recBuffer, 4);
-		}
 	}
   /* USER CODE END 3 */
 }
@@ -233,6 +321,89 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief SPI2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI2_Init(void)
+{
+
+  /* USER CODE BEGIN SPI2_Init 0 */
+
+  /* USER CODE END SPI2_Init 0 */
+
+  /* USER CODE BEGIN SPI2_Init 1 */
+
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI2_Init 2 */
+
+  /* USER CODE END SPI2_Init 2 */
+
+}
+
+/**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 5624;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_DOWN;
+  htim3.Init.Period = 63999;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
+
 }
 
 /**
@@ -322,7 +493,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-  //__HAL_UART_ENABLE_IT(&huart1, UART_IT_TC); // TX Flag
+  __HAL_UART_ENABLE_IT(&huart1, UART_IT_TC); // TX Flag
   __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE); // RX Flag
   /* USER CODE END USART1_Init 2 */
 
@@ -377,7 +548,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, MAX7219_CS_Pin_Pin|LD2_Pin|TEST_Pin_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
@@ -385,12 +556,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : LD2_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin;
+  /*Configure GPIO pins : MAX7219_CS_Pin_Pin LD2_Pin TEST_Pin_Pin */
+  GPIO_InitStruct.Pin = MAX7219_CS_Pin_Pin|LD2_Pin|TEST_Pin_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : IR_In_Pin */
   GPIO_InitStruct.Pin = IR_In_Pin;
@@ -401,6 +572,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
 void reset() {
 	mode = NONE;
 	protocol = UNUSED;
@@ -409,17 +581,21 @@ void reset() {
 	if (rawData) {
 		free(rawData);
 	}
+	rawData = NULL;
 	rawLen = 0;
 	should_receive = 1;
 	my_disable();
+	textIndex = -1;
+	textDirection = 1;
 }
+
 // Only use recBuffer here. Otherwise it wouldnt be complete.
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if (huart->Instance == USART1){
 		int is_ok = 0;
-		char message[5] = "OK";
-
+		char message[5] = "OK\n";
+		hasCalled = 1;
 		if (mode == NONE) {
 			if (protocol != UNUSED) {
 				memset(trans_str, 0, STR_LEN);
@@ -427,7 +603,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				memcpy(trans_str, recBuffer, sizeof(char) * len);
 				mode = DECODE;
 				memset(recBuffer, 0, STR_LEN);
-				HAL_UART_Transmit(&huart1, message, 2, 10);
+				//HAL_UART_Transmit(&huart1, message, 3, 10);
 				return;
 			}
 		}
@@ -441,6 +617,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 			// Reset message. Reset everything.
 			reset();
 			is_ok = 1;
+
 		}
 		else if (strcmp(recBuffer, "RECV") == 0) {
 			mode = RECV;
@@ -469,9 +646,19 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		}
 		memset(recBuffer, 0, STR_LEN);
 		if (is_ok == 0) {
+			MAX7219_ClearAll();
+			MAX7219_PutString(0, "Err");
 			HAL_NVIC_SystemReset();
 		}
-		HAL_UART_Transmit(&huart1, message, 2, 10);
+		HAL_UART_Transmit(&huart1, message, 3, 10);
+		if (should_receive) {
+			if (!bt_connected) {
+				MAX7219_ClearAll();
+				MAX7219_PutString(0, "RC-ClONE");
+			}
+			bt_connected = 1;
+			HAL_UART_Receive_IT(&huart1, recBuffer, 4);
+		}
 	}
 }
 

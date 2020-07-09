@@ -5,6 +5,20 @@ int in_enabled = 0;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+	if (htim->Instance == TIM3){
+
+		if (htim->Instance->ARR != htim->Instance->CNT) return;
+		uint32_t tick = HAL_GetTick();
+		if (tick == 0){
+			return;
+		}
+		if (hasCalled || mode == RECV) {
+			hasCalled = 0;
+			return;
+		}
+		HAL_UART_Transmit(&huart1, "OK\n", 3, 10);
+		HAL_NVIC_SystemReset();
+	}
 	if(htim == &htim4)
 	{
 		uint8_t irdata = RECIV_PIN;

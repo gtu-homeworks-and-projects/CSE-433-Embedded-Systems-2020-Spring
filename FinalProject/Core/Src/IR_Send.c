@@ -116,6 +116,7 @@ void enableIROut(uint8_t khz)
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 	HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1);
 	HAL_TIM_MspPostInit(&htim4);
+	DWT_Init();
 	out_enabled = 1;
 }
 

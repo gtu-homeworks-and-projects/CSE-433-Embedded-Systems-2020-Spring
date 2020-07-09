@@ -1,6 +1,9 @@
 #include "main.h"
 
 extern TIM_HandleTypeDef htim4;
+extern TIM_HandleTypeDef htim3;
+extern UART_HandleTypeDef huart1;
+extern int hasCalled;
 
 #define MYPRESCALER 71
 #define MYPERIOD 9
@@ -90,6 +93,7 @@ typedef enum
 		NONE = 2,
 		DECODE = 3
 } remote_mode;
+extern remote_mode mode;
 
 // Results returned from the decoder
 typedef struct

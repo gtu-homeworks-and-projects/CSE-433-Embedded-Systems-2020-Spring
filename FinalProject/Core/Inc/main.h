@@ -66,8 +66,12 @@ void Error_Handler(void);
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
 #define USART_RX_GPIO_Port GPIOA
+#define MAX7219_CS_Pin_Pin GPIO_PIN_4
+#define MAX7219_CS_Pin_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
+#define TEST_Pin_Pin GPIO_PIN_8
+#define TEST_Pin_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
@@ -79,6 +83,10 @@ void Error_Handler(void);
 /* USER CODE BEGIN Private defines */
 #define recive_IR_Pin GPIO_PIN_5
 #define recive_IR_GPIO_Port GPIOB
+#define MAX7219_CS_Pin GPIO_PIN_4
+#define MAX7219_CS_GPIO_Port GPIOA
+#define TEST_Pin GPIO_PIN_8
+#define TEST_GPIO_Port GPIOA
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
